@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="src/turnjs4/extras/jquery.min.1.7.js"></script>
+<script type="text/javascript" src="src/turnjs4/extras/modernizr.2.5.3.min.js"></script>
+<script type="text/javascript" src="src/turnjs4/lib/hash.js"></script>
+<script type="text/javascript" src="src/turnjs4/lib/turn.js"></script>
+
+    <title>f1draise-zine</title>
+  </head>
+  <body>
+   <div id="flipbook">
+	<div class="hard"> Turn.js </div>
+	<div class="hard"></div>
+	<div> Page 1 </div>
+	<div> Page 2 </div>
+	<div> Page 3 </div>
+	<div> Page 4 </div>
+	<div class="hard"></div>
+	<div class="hard"></div>
+</div>
+
+<script type="text/javascript">
+	$("#flipbook").turn({
+		width: 400,
+		height: 300,
+		autoCenter: true
+	});
+</script>
+  </body>
+</html>
