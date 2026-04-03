@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^8.0.1"
+  },
+  "dependencies": {
+    "jquery": "^4.0.0"
   }
 }

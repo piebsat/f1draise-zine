@@ -48,7 +48,7 @@ function loadPage(page, pageElement) {
 
 	// Load the page
 
-	img.attr('src', 'pages/' +  page + '.jpg');
+	img.attr('src', 'src/zine/pages/' +  page + '.jpg');
 
 	loadRegions(page, pageElement);
 
@@ -78,7 +78,7 @@ function zoomTo(event) {
 
 function loadRegions(page, element) {
 
-	$.getJSON('pages/'+page+'-regions.json').
+	$.getJSON('src/zine/pages/'+page+'-regions.json').
 		done(function(data) {
 
 			$.each(data, function(key, region) {
@@ -179,7 +179,7 @@ function loadLargePage(page, pageElement) {
 
 	// Loadnew page
 	
-	img.attr('src', 'pages/' +  page + '-large.jpg');
+	img.attr('src', 'src/zine/pages/' +  page + '-large.jpg');
 }
 
 // Load small page
@@ -193,7 +193,7 @@ function loadSmallPage(page, pageElement) {
 	img.unbind('load');
 	// Loadnew page
 
-	img.attr('src', 'pages/' +  page + '.jpg');
+	img.attr('src', 'src/zine/pages/' +  page + '.jpg');
 }
 
 // http://code.google.com/p/chromium/issues/detail?id=128488
@@ -302,12 +302,12 @@ function setPreview(view) {
 
 	var previewWidth = 112,
 		previewHeight = 73,
-		previewSrc = 'pages/preview.jpg',
-		preview = $(_thumbPreview.children(':first')),
+		previewSrc = 'src/zine/pages/preview.jpg',
+		preview = $(window._thumbPreview.children(':first')),
 		numPages = (view==1 || view==$('#slider').slider('option', 'max')) ? 1 : 2,
 		width = (numPages==1) ? previewWidth/2 : previewWidth;
 
-	_thumbPreview.
+	window._thumbPreview.
 		addClass('no-transition').
 		css({width: width + 15,
 			height: previewHeight + 15,
@@ -326,7 +326,7 @@ function setPreview(view) {
 		preview.css({backgroundImage: 'url(' + previewSrc + ')'});
 
 		setTimeout(function(){
-			_thumbPreview.removeClass('no-transition');
+			window._thumbPreview.removeClass('no-transition');
 		}, 0);
 
 	}
