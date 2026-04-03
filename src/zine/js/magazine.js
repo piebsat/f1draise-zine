@@ -2,24 +2,30 @@
  * Magazine sample
 */
 
-function addPage(page, book) {
+function addPage(page, book, isImg) {
 
-	var id, pages = book.turn('pages');
+	var element = $('<div />');
 
-	// Create a new element for this page
-	var element = $('<div />', {});
-
-	// Add the page to the flipbook
 	if (book.turn('addPage', element, page)) {
 
-		// Add the initial HTML
-		// It will contain a loader indicator and a gradient
-		element.html('<div class="gradient"></div><div class="loader"></div>');
-
-		// Load the page
-		loadPage(page, element);
+		if (isImg) {
+			// Image page
+			element.html('<div class="gradient"></div><div class="loader"></div>');
+			loadPage(page, element);
+		} else {
+			// HTML page
+			loadHTMLPage(page, element);
+		}
 	}
+}
 
+function loadHTMLPage(page, element) {
+	fetch(`src/zine/pages/${page}.html`)
+		.then(res => res.text())
+		.then(html => {
+			element.html(html);
+			loadRegions(page, element);
+		});
 }
 
 function loadPage(page, pageElement) {

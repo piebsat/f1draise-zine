@@ -143,11 +143,17 @@ function loadApp() {
 
 				missing: function (event, pages) {
 
-					// Add pages that aren't in the magazine
+					const htmlPages = [1]
 
-					for (var i = 0; i < pages.length; i++)
-						addPage(pages[i], $(this));
+					for (let page of pages) {
 
+						if (htmlPages.includes(page)) {
+							addPage(page, $(this), false);
+						} else {
+							addPage(page, $(this), true);
+						}
+
+					}
 				}
 			}
 
