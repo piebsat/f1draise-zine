@@ -23,6 +23,8 @@ jobs:
           }' > vite.config.js
       - name: Build project
         run: npm run build
+      - name: Debug build output
+        run: ls -la dist
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
