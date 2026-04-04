@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-node@v3
       - name: Install dependencies
         run: npm install
+      - name: Setup Pages
+        uses: actions/configure-pages@v4 
       - name: Configure vite
         run: |
           echo 'export default {
