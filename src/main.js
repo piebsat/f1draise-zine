@@ -1,6 +1,6 @@
-import "./zine/css/magazine.css";
-import "./zine/css/jquery.ui.css";
-import "./zine/css/jquery.ui.html4.css";
+import "zine/css/magazine.css";
+import "zine/css/jquery.ui.css";
+import "zine/css/jquery.ui.html4.css";
 
 const $ = window.jQuery;
 
