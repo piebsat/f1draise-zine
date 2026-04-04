@@ -68,6 +68,28 @@ window.addEventListener("load", () => {
       });
 });
 
+function updateFlipbookLayout(flipbook) {
+  if (!flipbook.turn("is")) return;
+
+  const isMobile = window.innerWidth < 1024;
+
+  const pageWidth = isMobile
+    ? window.innerWidth * 0.9
+    : 461;
+
+  const pageHeight = pageWidth * (600 / 461);
+
+  if (isMobile) {
+    flipbook.turn("display", "single");
+    flipbook.turn("size", pageWidth, pageHeight);
+  } else {
+    flipbook.turn("display", "double");
+    flipbook.turn("size", pageWidth * 2, pageHeight);
+  }
+
+  flipbook.turn("center");
+}
+
 function loadApp() {
   $("#canvas").fadeIn(1000);
 
@@ -86,6 +108,7 @@ function loadApp() {
     // Magazine width
 
     width: 922,
+    display: window.innerWidth < 1024 ? "single" : "double",
 
     // Magazine height
 
@@ -101,7 +124,7 @@ function loadApp() {
 
     // Auto center this flipbook
 
-    autoCenter: true,
+    autoCenter: false,
 
     // Elevation from the edge of the flipbook when turning a page
 
@@ -154,6 +177,7 @@ function loadApp() {
     },
   });
 
+  updateFlipbookLayout(flipbook);
   // Zoom.js
 
   $(".magazine-viewport").zoom({
@@ -205,7 +229,9 @@ function loadApp() {
         setTimeout(function () {
           $(".magazine").addClass("animated").removeClass("zoom-in");
           resizeViewport();
+          updateFlipbookLayout($(".magazine"));
         }, 0);
+        
       },
     },
   });
@@ -341,7 +367,15 @@ function loadApp() {
     },
   });
 
-  resizeViewport();
+  $(window)
+  .resize(function () {
+    resizeViewport();
+    updateFlipbookLayout($(".magazine"));
+  })
+  .bind("orientationchange", function () {
+    resizeViewport();
+    updateFlipbookLayout($(".magazine"));
+  });
 
   $(".magazine").addClass("animated");
 }
