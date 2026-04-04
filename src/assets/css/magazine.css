@@ -19,8 +19,8 @@ body{
 
   .magazine-viewport .container{
     position:absolute;
-	top:33%;
-	left:55%;
+	top:50%;
+	left:50%;
 	width:922px;
 	height:600px;
 	margin:auto;
@@ -40,8 +40,8 @@ body{
 
   .magazine-viewport .container{
     position:absolute;
-	top:37%;
-	left:55%;
+	top:50%;
+	left:50%;
 	width:922px;
 	height:600px;
 	margin:auto;

@@ -93,6 +93,14 @@ function updateFlipbookLayout(flipbook) {
 function loadApp() {
   $("#canvas").fadeIn(1000);
 
+  const isMobile = window.innerWidth < 1024;
+
+  const pageWidth = isMobile
+    ? window.innerWidth * 0.9
+    : 461;
+
+  const pageHeight = pageWidth * (600 / 461);
+
   var flipbook = $(".magazine");
 
   // Check if the CSS was already loaded
@@ -107,12 +115,12 @@ function loadApp() {
   flipbook.turn({
     // Magazine width
 
-    width: 922,
+    width: isMobile ? pageWidth : pageWidth * 2,
+    height: pageHeight,
     display: window.innerWidth < 1024 ? "single" : "double",
 
     // Magazine height
 
-    height: 600,
 
     // Duration in millisecond
 
