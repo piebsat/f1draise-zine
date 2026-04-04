@@ -20,7 +20,7 @@ function addPage(page, book, isImg) {
 }
 
 function loadHTMLPage(page, element) {
-	fetch(`./src/zine/pages/${page}.html`)
+	fetch(`./zine/pages/${page}.html`)
 		.then(res => res.text())
 		.then(html => {
 			element.html(html);
@@ -54,7 +54,7 @@ function loadPage(page, pageElement) {
 
 	// Load the page
 
-	img.attr('src', './src/zine/pages/' +  page + '.jpg');
+	img.attr('src', './zine/pages/' +  page + '.jpg');
 
 	loadRegions(page, pageElement);
 
@@ -84,7 +84,7 @@ function zoomTo(event) {
 
 function loadRegions(page, element) {
 
-	$.getJSON('./src/zine/pages/'+page+'-regions.json').
+	$.getJSON('./zine/pages/'+page+'-regions.json').
 		done(function(data) {
 
 			$.each(data, function(key, region) {
@@ -185,7 +185,7 @@ function loadLargePage(page, pageElement) {
 
 	// Loadnew page
 	
-	img.attr('src', './src/zine/pages/' +  page + '-large.jpg');
+	img.attr('src', './zine/pages/' +  page + '-large.jpg');
 }
 
 // Load small page
@@ -199,7 +199,7 @@ function loadSmallPage(page, pageElement) {
 	img.unbind('load');
 	// Loadnew page
 
-	img.attr('src', './src/zine/pages/' +  page + '.jpg');
+	img.attr('src', './zine/pages/' +  page + '.jpg');
 }
 
 // http://code.google.com/p/chromium/issues/detail?id=128488
@@ -308,7 +308,7 @@ function setPreview(view) {
 
 	var previewWidth = 112,
 		previewHeight = 73,
-		previewSrc = './src/zine/pages/preview.jpg',
+		previewSrc = './zine/pages/preview.jpg',
 		preview = $(window._thumbPreview.children(':first')),
 		numPages = (view==1 || view==$('#slider').slider('option', 'max')) ? 1 : 2,
 		width = (numPages==1) ? previewWidth/2 : previewWidth;
