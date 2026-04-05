@@ -15,48 +15,6 @@ body{
 	margin:auto;
 }
 
-@media (max-width: 1024px){
-
-  .magazine-viewport .container{
-    position:absolute;
-	top:50%;
-	left:50%;
-	width:922px;
-	height:600px;
-	margin:auto;
-  }
-
-    
-  .bottom{
-    position:absolute;
-	left:0;
-	bottom: 3% !important;
-  }
-
-
-}
-
-@media (max-width: 768px){
-
-  .magazine-viewport .container{
-    position:absolute;
-	top:50%;
-	left:50%;
-	width:922px;
-	height:600px;
-	margin:auto;
-  }
-
-  
-  .bottom{
-    position:absolute;
-	left:0;
-	bottom: 3% !important;
-  }
-
-}
-
-
 .magazine-viewport .magazine{
 	width:22px;
 	height:20px;

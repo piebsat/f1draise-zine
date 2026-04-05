@@ -27,6 +27,26 @@ function injectHTML() {
 	</div>`;
 }
 
+function updateFlipbookLayout() {
+  const flipbook = $(".magazine");
+
+  if (!flipbook.turn("is")) return;
+
+  const isMobile = window.innerWidth < 1024;
+
+  const newWidth = isMobile ? window.innerWidth * 0.75 : 922;
+  const newHeight = isMobile ? window.innerWidth * 1.0 : 600;
+  const newDisplay = isMobile ? "single" : "double";
+
+  flipbook.turn("size", newWidth, newHeight);
+
+  if (flipbook.turn("display") !== newDisplay) {
+    flipbook.turn("display", newDisplay);
+  }
+
+  flipbook.turn("center");
+}
+
 window.addEventListener("load", () => {
 	document.querySelector("#app").innerHTML = `
 		<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
@@ -223,13 +243,17 @@ function loadApp() {
     },
   });
 
-  $(window)
-    .resize(function () {
-      resizeViewport();
-    })
-    .bind("orientationchange", function () {
-      resizeViewport();
-    });
+  let resizeTimer;
+
+  $(window).on("resize orientationchange", function () {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      resizeViewport();      
+      updateFlipbookLayout(); 
+      
+    }, 150);
+  });
 
   // Regions
   if ($.isTouch) {
