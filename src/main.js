@@ -38,14 +38,10 @@ window.addEventListener("load", () => {
 
 	document.addEventListener("keydown", function (e) {
 		if (e.key === "Enter" && e.target.id === "fname") {
-			if (e.target.value === "open") {
+			if (true) {
 				injectHTML();
 				loadApp();
-			}
-		}
-	});
-
-    $(".zoom-icon")
+            $(".zoom-icon")
       .bind("mouseover", function () {
         if ($(this).hasClass("zoom-icon-in"))
           $(this).addClass("zoom-icon-in-hover");
@@ -66,113 +62,54 @@ window.addEventListener("load", () => {
         else if ($(this).hasClass("zoom-icon-out"))
           $(".magazine-viewport").zoom("zoomOut");
       });
+			}
+		}
+	});
 });
-
-function updateFlipbookLayout(flipbook) {
-  if (!flipbook.turn("is")) return;
-
-  const isMobile = window.innerWidth < 1024;
-
-  const pageWidth = isMobile
-    ? window.innerWidth * 0.9
-    : 461;
-
-  const pageHeight = pageWidth * (600 / 461);
-
-  if (isMobile) {
-    flipbook.turn("display", "single");
-    flipbook.turn("size", pageWidth, pageHeight);
-  } else {
-    flipbook.turn("display", "double");
-    flipbook.turn("size", pageWidth * 2, pageHeight);
-  }
-
-  flipbook.turn("center");
-}
 
 function loadApp() {
   $("#canvas").fadeIn(1000);
-
-  const isMobile = window.innerWidth < 1024;
-
-  const pageWidth = isMobile
-    ? window.innerWidth * 0.9
-    : 461;
-
-  const pageHeight = pageWidth * (600 / 461);
-
   var flipbook = $(".magazine");
 
   // Check if the CSS was already loaded
-
   if (flipbook.width() == 0 || flipbook.height() == 0) {
     setTimeout(loadApp, 10);
     return;
   }
 
   // Create the flipbook
-
   flipbook.turn({
-    // Magazine width
-
-    width: isMobile ? pageWidth : pageWidth * 2,
-    height: pageHeight,
-    display: window.innerWidth < 1024 ? "single" : "double",
-
-    // Magazine height
-
-
-    // Duration in millisecond
-
+    width: window.innerWidth < 1024 ? innerWidth*0.75 : 922,
+    height: window.innerWidth < 1024 ? innerWidth*1.0 : 600,
     duration: 1000,
-
-    // Enables gradients
-
     gradients: true,
-
-    // Auto center this flipbook
-
-    autoCenter: false,
-
-    // Elevation from the edge of the flipbook when turning a page
-
+    autoCenter: true,
     elevation: 50,
-
-    // The number of pages
-
     pages: 12,
-
-    // Events
-
+    display: window.innerWidth < 1024 ? "single" : "double",
     when: {
       turning: function (event, page, view) {
         var book = $(this),
           currentPage = book.turn("page"),
           pages = book.turn("pages");
-
-        // Update the current URI
-
+          
         Hash.go("page/" + page).update();
 
         // Show and hide navigation buttons
-
         disableControls(page);
       },
 
       turned: function (event, page, view) {
         disableControls(page);
-
         $(this).turn("center");
-
         $("#slider").slider("value", getViewNumber($(this), page));
-
         if (page == 1) {
           $(this).turn("peel", "br");
         }
       },
 
       missing: function (event, pages) {
-        const htmlPages = [1];
+        const htmlPages = [];
 
         for (let page of pages) {
           if (htmlPages.includes(page)) {
@@ -185,7 +122,6 @@ function loadApp() {
     },
   });
 
-  updateFlipbookLayout(flipbook);
   // Zoom.js
 
   $(".magazine-viewport").zoom({
@@ -237,20 +173,16 @@ function loadApp() {
         setTimeout(function () {
           $(".magazine").addClass("animated").removeClass("zoom-in");
           resizeViewport();
-          updateFlipbookLayout($(".magazine"));
         }, 0);
-        
       },
     },
   });
 
   // Zoom event
-
   if ($.isTouch) $(".magazine-viewport").bind("zoom.doubleTap", zoomTo);
   else $(".magazine-viewport").bind("zoom.tap", zoomTo);
 
   // Using arrow keys to turn the page
-
   $(document).keydown(function (e) {
     var previous = 37,
       next = 39,
@@ -278,7 +210,6 @@ function loadApp() {
   });
 
   // URIs - Format #/page/1
-
   Hash.on("^page\/([0-9]*)$", {
     yep: function (path, parts) {
       var page = parts[1];
@@ -301,7 +232,6 @@ function loadApp() {
     });
 
   // Regions
-
   if ($.isTouch) {
     $(".magazine").bind("touchstart", regionClick);
   } else {
@@ -309,7 +239,7 @@ function loadApp() {
   }
 
   // Events for the next button
-
+  
   $(".next-button")
     .bind($.mouseEvents.over, function () {
       $(this).addClass("next-button-hover");
@@ -328,7 +258,6 @@ function loadApp() {
     });
 
   // Events for the next button
-
   $(".previous-button")
     .bind($.mouseEvents.over, function () {
       $(this).addClass("previous-button-hover");
@@ -347,7 +276,6 @@ function loadApp() {
     });
 
   // Slider
-
   $("#slider").slider({
     min: 1,
     max: numberOfViews(flipbook),
@@ -370,20 +298,10 @@ function loadApp() {
 
     stop: function () {
       if (window._thumbPreview) window._thumbPreview.removeClass("show");
-
       $(".magazine").turn("page", Math.max(1, $(this).slider("value") * 2 - 2));
     },
   });
 
-  $(window)
-  .resize(function () {
-    resizeViewport();
-    updateFlipbookLayout($(".magazine"));
-  })
-  .bind("orientationchange", function () {
-    resizeViewport();
-    updateFlipbookLayout($(".magazine"));
-  });
-
+  resizeViewport();
   $(".magazine").addClass("animated");
 }

@@ -183,6 +183,35 @@ body{
 	-ms-box-shadow:0 0 20px #ccc;
 	box-shadow:0 0 20px #ccc;
 }
+/* Make buttons visible by default on mobile */
+@media (max-width: 1024px) {
+  .magazine,
+  .magazine-viewport {
+	position: relative;
+	overflow: visible !important;
+  }
+
+  .magazine-viewport .next-button,
+  .magazine-viewport .previous-button {
+    display: block !important;
+    opacity: 1 !important;
+    width: 30px !important;
+    height: 100%;
+
+    top: 0;
+    z-index: 9999;
+
+    background-color: rgba(0, 0, 0, 0.2); 
+  }
+
+  .magazine-viewport .next-button {
+    right: -30px !important;
+  }
+
+  .magazine-viewport .previous-button {
+    left: -30px !important;
+  }
+}
 
 .magazine-viewport .next-button,
 .magazine-viewport .previous-button{
